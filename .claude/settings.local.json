@@ -1,7 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(find /c/Github/shiny-bot-Windows -type f \\\\\\( -name \"*.py\" -o -name \"*.ps1\" -o -name \"*.sh\" -o -name \"*.c\" -o -name \"*.h\" -o -name \"*.json\" -o -name \"CMakeLists.txt\" -o -name \"*.txt\" \\\\\\) -exec grep -l \"Users\\\\|msys\\\\|mingw\\\\|Program Files\\\\|pico-sdk\" {} \\\\;)"
-    ]
-  }
-}
