@@ -59,6 +59,27 @@ Required software:
 
 # Build Pico Firmware
 
+> **Optional: `build.sh` script**
+> A bash script (`pico-fw/build.sh`) is available to automate the CMake steps below. Run it from Git Bash or MSYS2 inside `pico-fw/`:
+>
+> ```bash
+> # First time — full clean build with WiFi credentials
+> ./build.sh --clean --ssid "YourSSID" --pass "YourPassword"
+>
+> # Subsequent rebuilds (credentials cached in CMake config)
+> ./build.sh
+>
+> # Build and auto-flash (hold BOOTSEL and plug in Pico first)
+> ./build.sh --flash
+> ```
+>
+> The `--flash` flag will auto-detect the `RPI-RP2` drive (checks D–H) and copy the `.uf2` for you, replacing the manual copy step below.
+> Default toolchain paths assumed by the script: Pico SDK at `~/pico-sdk`, MSYS2 at `C:\msys64\mingw64`, Arm GNU Toolchain 14.2 at its default install location. Override via `PICO_SDK_PATH`, `MINGW_PATH`, or `ARM_GCC_PATH` environment variables if your paths differ.
+>
+> The manual steps below still work if you prefer them or if the script doesn't fit your environment.
+
+---
+
 Set Pico SDK path (PowerShell):
 
 ```powershell
