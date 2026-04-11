@@ -16,7 +16,18 @@ BUILD_DIR="$SCRIPT_DIR/build"
 export PICO_SDK_PATH="${PICO_SDK_PATH:-$HOME/pico-sdk}"
 export MINGW_PATH="${MINGW_PATH:-/c/msys64/mingw64/bin}"
 export ARM_GCC_PATH="${ARM_GCC_PATH:-/c/Program Files (x86)/Arm GNU Toolchain arm-none-eabi/14.2 rel1/bin}"
-export PATH="$MINGW_PATH:$ARM_GCC_PATH:$PATH"
+export CMAKE_PATH="${CMAKE_PATH:-/c/Program Files/CMake/bin}"
+
+# Auto-detect Ninja in winget packages folder if not already on PATH
+if ! command -v ninja &>/dev/null; then
+    NINJA_DIR=$(find "$LOCALAPPDATA/Microsoft/WinGet/Packages" -maxdepth 1 -name "Ninja*" -type d 2>/dev/null | head -1)
+    if [ -n "$NINJA_DIR" ]; then
+        export NINJA_PATH="$NINJA_DIR"
+    fi
+fi
+export NINJA_PATH="${NINJA_PATH:-}"
+
+export PATH="$CMAKE_PATH:$NINJA_PATH:$MINGW_PATH:$ARM_GCC_PATH:$PATH"
 
 # --- Parse arguments ---
 CLEAN=false
