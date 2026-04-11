@@ -56,14 +56,32 @@ python check_star.py --watch-seconds 5 --show --device 1
 
 **`pico-fw/src/main.c`** — Pico 2 W firmware. Hosts an HTTP server on port 8080 with endpoints `/cmd`, `/reset`, `/status`, `/ping`, `/ready`. Parses button commands into a queue (max 128) and replays them as USB HID reports to the Switch.
 
+## Setup
+
+Automated setup (installs all prerequisites, builds firmware, optionally flashes):
+```
+powershell.exe -ExecutionPolicy Bypass -File setup.ps1 -SSID "YourSSID" -Password "YourPassword" -Flash
+```
+
 ## Building Pico firmware
 
-Requires CMake and the Pico SDK. From `pico-fw/`:
+Requires: CMake, Ninja, ARM GNU Toolchain, MSYS2 MinGW GCC (host compiler for pioasm/picotool), and the Pico SDK at `~/pico-sdk`.
+
+Using `build.sh` (recommended, run from Git Bash in `pico-fw/`):
+```bash
+./build.sh --clean --ssid "YourSSID" --pass "YourPassword"
+./build.sh --flash
 ```
-mkdir build && cd build
-cmake .. -DPICO_BOARD=pico2_w -DWIFI_SSID='"YourSSID"' -DWIFI_PASSWORD='"YourPassword"'
+
+Manual (PowerShell):
+```powershell
+$env:PICO_SDK_PATH = "$HOME\pico-sdk"
+cd pico-fw; mkdir build; cd build
+cmake .. -G Ninja -DPICO_BOARD=pico2_w -DWIFI_SSID='"YourSSID"' -DWIFI_PASSWORD='"YourPassword"'
 cmake --build . -j
 ```
+
+`-G Ninja` is required on Windows (no default generator without Visual Studio).
 
 Flash `shinybot_pico_fw.uf2` by holding BOOTSEL on the Pico while plugging it in, then copying the `.uf2` to the `RPI-RP2` drive.
 
