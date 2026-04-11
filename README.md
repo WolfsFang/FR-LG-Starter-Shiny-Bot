@@ -196,10 +196,7 @@ git clone https://github.com/raspberrypi/pico-sdk.git $HOME\pico-sdk
 ```powershell
 cd $HOME\pico-sdk
 git submodule update --init
-```
-
-```powershell
-cd -
+cd $HOME
 ```
 
 This will take a few minutes -- it's downloading several libraries the Pico needs (WiFi drivers, USB stack, etc.).
@@ -244,6 +241,10 @@ $env:PATH = "C:\path\to\tool;$env:PATH"
 # Build Pico Firmware
 
 There are two ways to build: the **build script** (recommended) or **manual steps**.
+
+> **Note:** During the first build, you may see a CMake warning about picotool:
+> `No installed picotool with version X.X.X found - building from source`
+> This is normal -- the build downloads and compiles it automatically. No action needed.
 
 ## Option A: Build Script (Recommended)
 
