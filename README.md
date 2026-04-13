@@ -325,6 +325,10 @@ cmake --build . -j
 
 This will take a minute or two. When it finishes, you should see `shinybot_pico_fw.uf2` in the `build` folder.
 
+> **Note:** During the first build, you may see a CMake warning about picotool:
+> `No installed picotool with version X.X.X found - building from source`
+> This is normal -- the build downloads and compiles it automatically. No action needed.
+
 ---
 
 # Flash Pico
