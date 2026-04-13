@@ -196,7 +196,10 @@ git clone https://github.com/raspberrypi/pico-sdk.git $HOME\pico-sdk
 ```powershell
 cd $HOME\pico-sdk
 git submodule update --init
-cd $HOME
+```
+
+```powershell
+cd -
 ```
 
 This will take a few minutes -- it's downloading several libraries the Pico needs (WiFi drivers, USB stack, etc.).
@@ -241,10 +244,6 @@ $env:PATH = "C:\path\to\tool;$env:PATH"
 # Build Pico Firmware
 
 There are two ways to build: the **build script** (recommended) or **manual steps**.
-
-> **Note:** During the first build, you may see a CMake warning about picotool:
-> `No installed picotool with version X.X.X found - building from source`
-> This is normal -- the build downloads and compiles it automatically. No action needed.
 
 ## Option A: Build Script (Recommended)
 
@@ -410,6 +409,8 @@ Then set up OBS:
 
 You should now see your Switch's screen inside OBS.
 
+> **Important:** Set your capture card output to **720p (1280×720)**. The bot's detection ROI is tuned to this resolution — other resolutions will cause the yellow star check to miss or misfire.
+
 Now enable the **Virtual Camera** so the bot can read the video feed:
 
 1. In OBS, click **Start Virtual Camera** (bottom right, next to "Start Recording")
@@ -421,18 +422,18 @@ Now enable the **Virtual Camera** so the bot can read the video feed:
 
 # Test Shiny Detection
 
-Place screenshots in your **Downloads** folder.
+Sample screenshots are included in the `Detection Photos/` folder — these are real Charmander captures used to validate the detection. Run from the repo root:
 
 Test shiny screenshot:
 
 ```
-python check_star.py --image shiny.jpg --show
+python check_star.py --image "Detection Photos/shiny.jpg" --show
 ```
 
 Test normal screenshot:
 
 ```
-python check_star.py --image normal.jpg --show
+python check_star.py --image "Detection Photos/normal.jpg" --show
 ```
 
 Test live capture (direct, OBS must be closed):
